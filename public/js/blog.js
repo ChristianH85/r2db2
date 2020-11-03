@@ -12,10 +12,8 @@ $(document).ready(function() {
   const mList=["City of God,", "True Romance", "Confessions of a Dangerous Mind","Go","inglourious basterds", "Seven Samurai"]
   function handleMovie(){
    var mChoice=mList[Math.floor(Math.random()*mList.length)]
-   console.log(mChoice)
     $.get("/api/movie/"+mChoice
     ).then(data=>{
-      console.log(data)
       movie.empty()
       movie.append(`<div class="card" style="width: 18rem;">
       <img src="${data.Poster}" class="card-img-top" alt="...">

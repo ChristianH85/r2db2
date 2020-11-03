@@ -12,7 +12,6 @@ var db = require("../models");
 // =============================================================
 module.exports = function(app) {
   app.get("/api/movie/:title", function(req, res){
-    console.log(req.params.title)
     axios.get("https://www.omdbapi.com/?t=" + req.params.title + "&y=&plot=short&apikey="+process.env.MKEY)
   .then(function (response) {
     res.json(response.data);
