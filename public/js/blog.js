@@ -2,12 +2,29 @@ $(document).ready(function() {
   // blogContainer holds all of our posts
   var blogContainer = $(".blog-container");
   var postCategorySelect = $("#category");
+  const movie =$(".movie");
   // Click events for the edit and delete buttons
   $(document).on("click", "button.delete", handlePostDelete);
   $(document).on("click", "button.edit", handlePostEdit);
+  $(document).on("click", ".mBtn", handleMovie);
   postCategorySelect.on("change", handleCategoryChange);
   var posts;
-
+  const mList=["City of God,", "True Romance", "Confessions of a Dangerous Mind","Go","inglourious basterds", "Seven Samurai"]
+  function handleMovie(){
+   var mChoice=mList[Math.floor(Math.random()*mList.length)]
+   console.log(mChoice)
+    $.get("/api/movie/"+mChoice
+    ).then(data=>{
+      console.log(data)
+      movie.empty()
+      movie.append(`<div class="card" style="width: 18rem;">
+      <img src="${data.Poster}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h4 class="card-title"><strong>${data.Title}</strong></h4>
+      </div>
+    </div>`)
+    })
+  }
   // This function grabs posts from the database and updates the view
   function getPosts(category) {
     var categoryString = category || "";

@@ -1,17 +1,27 @@
 // *********************************************************************************
 // api-routes.js - this file offers a set of routes for displaying and saving data to the db
 // *********************************************************************************
-
+require('dotenv').config()
 // Dependencies
 // =============================================================
-
+const axios = require('axios').default;
 // Requiring our Todo model
 var db = require("../models");
 
 // Routes
 // =============================================================
 module.exports = function(app) {
+  app.get("/api/movie/:title", function(req, res){
+    console.log(req.params.title)
+    axios.get("https://www.omdbapi.com/?t=" + req.params.title + "&y=&plot=short&apikey="+process.env.MKEY)
+  .then(function (response) {
+    res.json(response.data);
+  })
+  .catch(function (error) {
 
+    console.log(error);
+  })
+  })
   // GET route for getting all of the posts
   app.get("/api/posts/", function(req, res) {
     db.Post.findAll({})
